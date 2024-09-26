@@ -1,24 +1,43 @@
-"# Public-Sentiment-on-Security-Cameras" 
+# Public Sentiment on Security Cameras
 
-downloaded suomi24 data from: https://korp.csc.fi/download/Suomi24/ converted data from zip to CSV using: zip_to_csv.py
+This repository presents a detailed analysis of public sentiment toward security cameras, based on discussions from Suomi24, Finland's largest online forum. The dataset spans 20 years (2000-2020), and the analysis leverages natural language processing techniques for sentiment analysis and trend discovery.
 
-then filtered data using filter_suomi24_csv.py by phrases mentioned in the py file
+## Data Processing Workflow
 
-then I used the model opus model given by Helsinki University to translate Finnish data into English
+1. **Data Acquisition**:  
+   The Suomi24 dataset was downloaded from [Korp](https://korp.csc.fi/download/Suomi24/) as zip files, which were then converted into CSV format using `zip_to_csv.py`.
 
-then I cleaned data and then combined the 20 csvs of 20 years of data into 1 csv file
-in cleaning I converted some UTF-8 encoded characters like 'â€™ to apostrophe (') and kept only ASCII characters. and removed duplicated sentences to remove noise and spam.
+2. **Data Filtering**:  
+   Relevant discussions were filtered based on specific phrases, as defined in `filter_suomi24_csv.py`.
 
-first, I did preprocessing: lowercase, removed numbers, removed multiple spaces, punctuations, single and double characters to dodge utf-8 encoding characters like '&gt' removed stopwords applied word lemmatization saved the text into a new column named processed_text
+3. **Translation**:  
+   The filtered Finnish data was translated into English using the Opus model developed by Helsinki University.
 
-then I did some analysis in Trends.ipynb notebook, where I displayed;
-Monthly Trends in Discussions Over Time
-WordCloud
-Heatmap of Discussions Over Time
-Keyword Frequencies of the keywords mentioned in the notebook cell
-Co-occurrence Heatmap of the same Keywords
+4. **Data Cleaning**:  
+   During the cleaning process:
+   - UTF-8 encoded characters like ‘â€™ were replaced with the appropriate ASCII equivalents (e.g., apostrophes).
+   - Duplicate sentences were removed to reduce noise and potential spam.
+   - The data from 20 CSV files (representing 20 years) was combined into a single dataset.
 
-Then we created a hypothesis and created embedding of the rows and the hypothesis,
-used cosine similarity to assign rows to the hypothesis so that these hypotheses can be used as aspects.
+5. **Text Preprocessing**:  
+   Several preprocessing steps were applied to the dataset:
+   - Conversion to lowercase
+   - Removal of numbers, multiple spaces, punctuations, and single/double characters
+   - Removal of stopwords
+   - Lemmatization of words  
+   The processed text was saved in a new column named `processed_text`.
 
-then used sentiSentiment for sentiment mining.
+## Analysis and Visualization
+
+The `Trends.ipynb` notebook includes the following analyses:
+- **Monthly Trends**: A visualization of the discussion trends over time.
+- **Word Cloud**: A graphical representation of the most frequently discussed topics.
+- **Heatmap**: A heatmap showcasing the intensity of discussions over time.
+- **Keyword Frequencies**: The frequency of key terms across the dataset.
+- **Co-occurrence Heatmap**: A heatmap visualizing the relationships between the keywords.
+
+## Hypothesis Creation and Sentiment Analysis
+
+We formulated several hypotheses to explore specific aspects of public sentiment related to security cameras:
+- **Embeddings**: The rows of data were embedded using word embeddings and compared to the hypothesis embeddings using cosine similarity. This allowed for the assignment of each row to a corresponding hypothesis.
+- **Sentiment Analysis**: The SentiStrength model was used for mining sentiment, which helped categorize public sentiment into positive, negative, and neutral categories.
